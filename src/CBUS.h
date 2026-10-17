@@ -40,8 +40,6 @@
 #define DEBUG_SERIAL Serial
 #endif
 
-#include <SPI.h>
-
 #include <CBUSLED.h>
 #include <CBUSswitch.h>
 #include <CBUSconfig.h>
@@ -110,11 +108,7 @@ public:
   // these methods are pure virtual and must be implemented by the derived class
   // as a consequence, it is not possible to create an instance of this class
 
-#ifdef ARDUINO_ARCH_RP2040
-  virtual bool begin(bool poll = false, SPIClassRP2040 & spi = SPI) = 0;
-#else
-  virtual bool begin(bool poll = false, SPIClass & spi = SPI) = 0;
-#endif
+  virtual bool begin(bool poll = false) = 0;
   virtual bool available(void) = 0;
   virtual CANFrame getNextMessage(void) = 0;
   virtual bool sendMessage(CANFrame *msg, bool rtr = false, bool ext = false, byte priority = DEFAULT_PRIORITY) = 0;
